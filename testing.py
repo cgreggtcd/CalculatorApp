@@ -1,4 +1,4 @@
-from calculator.py import *
+from calculator import *
 
 # Remove once any function is added
 def test_test():
