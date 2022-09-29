@@ -1,3 +1,2 @@
-# Remove once any function is added
-def temp_func():
+def calculate(input):
     return 0
