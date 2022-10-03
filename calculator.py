@@ -4,8 +4,6 @@ def calculate(input):
 
 def multiply_string(input):
     index_of_mul = input.find("*")
-    print("Input: {}".format(input))
-    print("index_of_mul: {}".format(index_of_mul))
 
     # If there is no * in the equation
     if index_of_mul == -1:
