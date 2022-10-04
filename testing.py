@@ -10,4 +10,4 @@ def test_addition():
     assert calculate("1+2")==3
     assert calculate("43+377")==420
     assert calculate("0+0")==0
-    assert calculate("1+2+3+4+5")==6
+    assert calculate("1+2+3+4+5")==15

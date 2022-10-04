@@ -1,7 +1,8 @@
 def calculate(input):
-    answer = add_string(input)
     answer = multiply_string(input)
+    answer = add_string(answer)
     return int(answer)
+
 
 def multiply_string(input):
     index_of_mul = input.find("*")
@@ -22,11 +23,12 @@ def multiply_string(input):
     while end_multiplier < len(input) and input[end_multiplier].isdigit():
         end_multiplier += 1
     # Calculate the multiplier
-    multiplier = int(input[index_of_mul+1:end_multiplier])
+    multiplier = int(input[index_of_mul + 1:end_multiplier])
 
     # Recursively call the method, replacing the part that was calculated with the answer
     return multiply_string(input[:start_multiplicand]
-        + str(multiplicand * multiplier) + input[end_multiplier:])
+                           + str(multiplicand * multiplier) + input[end_multiplier:])
+
 
 def add_string(input):
     # using similar naming convention as the multiplication function
@@ -49,9 +51,9 @@ def add_string(input):
     while end_addend < len(input) and input[end_addend].isdigit():
         end_addend += 1
 
-    # Calculate the end of the end_addend
-    addend = int(input[index_of_add+1:end_addend])
+    # Calculate the addend
+    addend = int(input[index_of_add + 1:end_addend])
 
     # Recursively call the method, replacing the calculated part with the answer
     return add_string(input[:start_augend] + str(augend + addend)
-        + input[end_addend:])
+                      + input[end_addend:])
