@@ -53,5 +53,5 @@ def add_string(input):
     addend = int(input[index_of_add+1:end_addend])
 
     # Recursively call the method, replacing the calculated part with the answer
-    return multiply_string(input[:start_augend] + str(augend + addend)
+    return add_string(input[:start_augend] + str(augend + addend)
         + input[end_addend:])
