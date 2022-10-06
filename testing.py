@@ -5,7 +5,10 @@ def test_multiply():
     assert calculate("1*1")==1
     assert calculate("67*0")==0
     assert calculate("1*2*3*4*5")==120
-
+    assert calculate("-1*20")==-20
+    assert calculate("-5*-5")==25
+    assert calculate("7*-6")==-56
+    
 def test_addition():
     assert calculate("1+2")==3
     assert calculate("43+377")==420
