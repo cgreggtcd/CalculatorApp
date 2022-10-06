@@ -12,31 +12,6 @@ def resolve_signs(input):
     i = 1
     while i < len(input):
         currChar = input[i]
-
-        if (prevChar == "-" and currChar == "+") or (prevChar == "+" and currChar == "-"):
-            input = input[:i-1] + "-" + input[i+1:]
-            # Then, everything after the second +/- is one to the left
-            prevChar = input[i]
-            i+=1
-
-        elif prevChar == "-" and currChar == "-":
-            input = input[:i-1] + "+" + input[i+1:]
-            # Then, everything after the second +/- is one to the left
-            prevChar = input[i]
-            i+=1
-
-        else:
-            i += 1
-            prevChar = currChar
-
-    return input
-
-# This function resolves any sets of two signs: +- -> -, -+ -> -, -- -> +
-def resolve_signs(input):
-    prevChar = input[0]
-    i = 1
-    while i < len(input):
-        currChar = input[i]
         print("prevChar = {}, currChar = {}".format(prevChar, currChar))
 
         if (prevChar == "-" and currChar == "+") or (prevChar == "+" and currChar == "-"):

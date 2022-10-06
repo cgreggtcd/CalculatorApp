@@ -22,6 +22,10 @@ def test_multi_op():
     assert calculate("1+2-3")==0
     assert calculate("3*4-1")==11
     assert calculate("8+6-7*4+3-2*6")==-23
+    assert calculate("12435+34569-12345*10+50")==-76396
+    assert calculate("697*1884-7034*519+2452")==-2335046
+    assert calculate("-20-662-1417*3899-299")==-5525864
+    assert calculate("-4002+763*7+2158")==3497
 
 def test_neg_values():
     assert calculate("-1+2")==1
@@ -42,7 +46,7 @@ def test_multiply_string():
     assert multiply_string("-2*3")=="-6"
     assert multiply_string("1-2*-3")=="1--6"
     assert multiply_string("136+120*-82")=="136+-9840"
-    
+
 # Confirms that the subtract string function works correctly internally
 def test_subtract_string():
     assert subtract_string("24-35")=="-11"
