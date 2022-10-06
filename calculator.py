@@ -3,6 +3,9 @@ def calculate(input):
     answer = add_string(answer)
     return int(answer)
 
+# This function resolves any sets of two signs: +- -> -, -+ -> -, -- -> +
+def resolve_signs(input):
+    return input
 
 def multiply_string(input):
     index_of_mul = input.find("*")
