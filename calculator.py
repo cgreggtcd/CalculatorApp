@@ -9,21 +9,18 @@ def resolve_signs(input):
     i = 1
     while i < len(input):
         currChar = input[i]
-        print("prevChar = {}, currChar = {}".format(prevChar, currChar))
 
         if (prevChar == "-" and currChar == "+") or (prevChar == "+" and currChar == "-"):
             input = input[:i-1] + "-" + input[i+1:]
             # Then, everything after the second +/- is one to the left
             prevChar = input[i]
             i+=1
-            print("New input is {}, new prevChar = {}, new i = {}".format(input, prevChar, i))
 
         elif prevChar == "-" and currChar == "-":
             input = input[:i-1] + "+" + input[i+1:]
             # Then, everything after the second +/- is one to the left
             prevChar = input[i]
             i+=1
-            print("New input is {}, new prevChar = {}, new i = {}".format(input, prevChar, i))
 
         else:
             i += 1
