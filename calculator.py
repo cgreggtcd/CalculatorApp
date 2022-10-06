@@ -13,9 +13,8 @@ def multiply_string(input):
 
     # Find the start of the multiplicand
     start_multiplicand = index_of_mul - 1
-    while start_multiplicand > 0 and input[start_multiplicand].isdigit():
+    while start_multiplicand-1 >= 0 and input[start_multiplicand-1].isdigit():
         start_multiplicand -= 1
-    # Should ob
     if start_multiplicand-1 == 0 and input[start_multiplicand-1] == "-":
         start_multiplicand -= 1
     # Calculate the multiplicand
