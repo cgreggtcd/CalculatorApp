@@ -4,13 +4,38 @@ def calculate(input):
     answer = add_string(answer)
     answer = subtract_string(answer)
     # replace special string "neg" with '-' once all operation have been calculated
-    answer = answer.replace("neg", "-")
-    answer = answer.replace('-','', answer.count('-')-1)
     return int(answer)
 
 
+# This function resolves any sets of two signs: +- -> -, -+ -> -, -- -> +
+def resolve_signs(input):
+    prevChar = input[0]
+    i = 1
+    while i < len(input):
+        currChar = input[i]
+        print("prevChar = {}, currChar = {}".format(prevChar, currChar))
+
+        if (prevChar == "-" and currChar == "+") or (prevChar == "+" and currChar == "-"):
+            input = input[:i-1] + "-" + input[i+1:]
+            # Then, everything after the second +/- is one to the left
+            prevChar = input[i]
+            i+=1
+            print("New input is {}, new prevChar = {}, new i = {}".format(input, prevChar, i))
+
+        elif prevChar == "-" and currChar == "-":
+            input = input[:i-1] + "+" + input[i+1:]
+            # Then, everything after the second +/- is one to the left
+            prevChar = input[i]
+            i+=1
+            print("New input is {}, new prevChar = {}, new i = {}".format(input, prevChar, i))
+
+        else:
+            i += 1
+            prevChar = currChar
+
+    return input
+
 def multiply_string(input):
-    print(input)
     index_of_mul = input.find("*")
 
     # If there is no * in the equation
@@ -19,39 +44,25 @@ def multiply_string(input):
 
     # Find the start of the multiplicand
     start_multiplicand = index_of_mul - 1
-    while start_multiplicand > 0 and input[start_multiplicand-1].isdigit():
+    while start_multiplicand-1 >= 0 and input[start_multiplicand-1].isdigit():
+        start_multiplicand -= 1
+    if start_multiplicand-1 == 0 and input[start_multiplicand-1] == "-":
         start_multiplicand -= 1
     # Calculate the multiplicand
     multiplicand = int(input[start_multiplicand:index_of_mul])
 
-    if((found_negative(input[:index_of_mul], multiplicand))==1):
-        print(multiplicand)
-        multiplicand = -multiplicand
-        print(multiplicand)
-        #input = input.replace(str(input[start_multiplicand-1]),'')
-        #index_of_mul -= 1
-
     # Find the end of the multiplier
     end_multiplier = index_of_mul + 1
-
-    if(input[end_multiplier]=='-'):
+    if input[end_multiplier] == "-":
         end_multiplier += 1
-
-
     while end_multiplier < len(input) and input[end_multiplier].isdigit():
         end_multiplier += 1
     # Calculate the multiplier
     multiplier = int(input[index_of_mul + 1:end_multiplier])
 
-    result = multiplicand * multiplier
-
     # Recursively call the method, replacing the part that was calculated with the answer
-    if(multiplier < 0 and result < 0):
-        return multiply_string(input[:start_multiplicand]
-                               + str(result) + input[end_multiplier:])
-    else:
-        return multiply_string(input[:start_multiplicand]
-                           + str(abs(result)) + input[end_multiplier:])
+    return multiply_string(input[:start_multiplicand]
+                           + str(multiplicand * multiplier) + input[end_multiplier:])
 
 
 def add_string(input):
@@ -109,6 +120,8 @@ def subtract_string(input):
 
     # If no subtraction operations are found
     if index_of_sub == -1:
+        input = input.replace("neg", "-")
+        input = input.replace('-','', input.count('-')-1)
         return input
 
     # Find the start of the minuend
