@@ -23,3 +23,9 @@ def test_multiply_string():
     assert multiply_string("-2*3")=="-6"
     assert multiply_string("1-2*-3")=="1--6"
     assert multiply_string("136+120*-82")=="136+-9840"
+
+def test_resolve_signs():
+    assert resolve_signs("1+-2")=="1-2"
+    assert resolve_signs("1-+2")=="1-2"
+    assert resolve_signs("11--22")=="11+22"
+    assert resolve_signs("11+22")=="11+22"
