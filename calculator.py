@@ -13,13 +13,17 @@ def multiply_string(input):
 
     # Find the start of the multiplicand
     start_multiplicand = index_of_mul - 1
-    while start_multiplicand > 0 and input[start_multiplicand].isdigit():
+    while start_multiplicand-1 >= 0 and input[start_multiplicand-1].isdigit():
+        start_multiplicand -= 1
+    if start_multiplicand-1 == 0 and input[start_multiplicand-1] == "-":
         start_multiplicand -= 1
     # Calculate the multiplicand
     multiplicand = int(input[start_multiplicand:index_of_mul])
 
     # Find the end of the multiplier
     end_multiplier = index_of_mul + 1
+    if input[end_multiplier] == "-":
+        end_multiplier += 1
     while end_multiplier < len(input) and input[end_multiplier].isdigit():
         end_multiplier += 1
     # Calculate the multiplier
