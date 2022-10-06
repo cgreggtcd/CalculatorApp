@@ -1,11 +1,10 @@
 def calculate(input):
+    input = input.replace("--",'+')
     answer = multiply_string(input)
     answer = add_string(answer)
     answer = subtract_string(answer)
     # replace special string "neg" with '-' once all operation have been calculated
-    print(answer)
     answer = answer.replace("neg", "-")
-    print(answer)
     answer = answer.replace('-','', answer.count('-')-1)
     return int(answer)
 
@@ -25,8 +24,10 @@ def multiply_string(input):
     # Calculate the multiplicand
     multiplicand = int(input[start_multiplicand:index_of_mul])
 
-    if((found_negative(input[:index_of_mul], multiplicand))==1 and input[0]=='-'):
+    if((found_negative(input[:index_of_mul], multiplicand))==1):
+        print(multiplicand)
         multiplicand = -multiplicand
+        print(multiplicand)
         #input = input.replace(str(input[start_multiplicand-1]),'')
         #index_of_mul -= 1
 
@@ -42,9 +43,15 @@ def multiply_string(input):
     # Calculate the multiplier
     multiplier = int(input[index_of_mul + 1:end_multiplier])
 
+    result = multiplicand * multiplier
+
     # Recursively call the method, replacing the part that was calculated with the answer
-    return multiply_string(input[:start_multiplicand]
-                           + str(multiplicand * multiplier) + input[end_multiplier:])
+    if(multiplier < 0 and result < 0):
+        return multiply_string(input[:start_multiplicand]
+                               + str(result) + input[end_multiplier:])
+    else:
+        return multiply_string(input[:start_multiplicand]
+                           + str(abs(result)) + input[end_multiplier:])
 
 
 def add_string(input):
@@ -64,7 +71,7 @@ def add_string(input):
     # Calculate the start_augend
     augend = int(input[start_augend:index_of_add])
 
-    if((found_negative(input[:index_of_add], augend))==1 and input[0]=='-'):
+    if((found_negative(input[:index_of_add], augend))==1 ):
         augend = -augend
         #input = input.replace(str(input[start_augend-1]),'')
         #index_of_add -= 1
@@ -82,14 +89,18 @@ def add_string(input):
     print(addend)
 
     if(augend < 0 and augend + addend > 0):
-        print(input)
+        print("hereproblem?")
         input = input.replace(str(input[start_augend-1]),'')
         print(input)
         start_augend -= 1
 
 
     # Recursively call the method, replacing the calculated part with the answer
-    return add_string(input[:start_augend] + str(augend + addend)
+    if(addend < 0 and augend + addend < 0) :
+        return add_string(input[:start_augend] + str((augend + addend))
+                          + input[end_addend:])
+    else:
+        return add_string(input[:start_augend] + str(abs(augend + addend))
                       + input[end_addend:])
 
 def subtract_string(input):
