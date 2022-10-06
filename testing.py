@@ -27,5 +27,5 @@ def test_multiply_string():
 def test_resolve_signs():
     assert resolve_signs("1+-2")=="1-2"
     assert resolve_signs("1-+2")=="1-2"
-    assert resolve_signs("1--2")=="1+2"
-    assert resolve_signs("1+2")=="1+2"
+    assert resolve_signs("11--22")=="11+22"
+    assert resolve_signs("11+22")=="11+22"
