@@ -65,7 +65,6 @@ def multiply_string(input):
 
 
 def add_string(input):
-    print(input)
     # using similar naming convention as the multiplication function
     index_of_add = input.find("+")
 
@@ -96,25 +95,23 @@ def add_string(input):
 
     # Calculate the addend
     addend = int(input[index_of_add + 1:end_addend])
-    print(addend)
 
     if(augend < 0 and augend + addend > 0):
-        print("hereproblem?")
         input = input.replace(str(input[start_augend-1]),'')
-        print(input)
         start_augend -= 1
 
 
+    if (operator_left(input[end_addend:])==-1 and end_addend < len(input)):
+        end_addend -= 1
     # Recursively call the method, replacing the calculated part with the answer
     if(addend < 0 and augend + addend < 0) :
         return add_string(input[:start_augend] + str((augend + addend))
                           + input[end_addend:])
     else:
         return add_string(input[:start_augend] + str(abs(augend + addend))
-                      + input[end_addend:])
+                            + input[end_addend:])
 
 def subtract_string(input):
-    print(input)
     index_of_sub = input.find("-")
 
     # If no subtraction operations are found
@@ -137,7 +134,6 @@ def subtract_string(input):
 
     negminuend = "neg" + str(minuend)
     if (input.find(negminuend)!=-1):
-        print("foundneg")
         minuend = -minuend
 
     end_subtrahend = index_of_sub + 1
@@ -149,18 +145,22 @@ def subtract_string(input):
 
     # Calculate the end_subtrahend
     subtrahend = int(input[index_of_sub + 1:end_subtrahend])
-    print(subtrahend)
 
     # Recursively call the method, replacing the calculaed part with the answer
     if (minuend - subtrahend < 0):
         return subtract_string(input[:start_minuend] + str("neg" + str(abs(minuend - subtrahend)))
                             + input[end_subtrahend:])
     else:
-        print("else")
         if (input[start_minuend-1]=='g' and minuend - subtrahend > 0):
             input = input.replace("neg",'')
         return subtract_string(input[:start_minuend] + str(abs(minuend - subtrahend))
                             + input[end_subtrahend:])
+
+def operator_left(input):
+    if(input.find('*')!=-1 or input.find('-')!= -1 or input.find('+')!=-1):
+        return 1
+    else:
+        return -1
 
 def found_negative(input, number):
     if(input.find('-'+str(number))!=-1):
