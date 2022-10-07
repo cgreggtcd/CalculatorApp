@@ -71,6 +71,9 @@ def add_string(input):
     # If no addition operations are found
     if index_of_add == -1:
         return input
+    elif index_of_add ==0:
+        input = input.replace('+','',1)
+        return add_string(input)
 
     # Find the augend (number to which another is added)
     start_augend = index_of_add - 1
@@ -82,8 +85,6 @@ def add_string(input):
 
     if((found_negative(input[:index_of_add], augend))==1 ):
         augend = -augend
-        #input = input.replace(str(input[start_augend-1]),'')
-        #index_of_add -= 1
 
     # Find the end of the addend
     end_addend = index_of_add + 1
@@ -97,8 +98,11 @@ def add_string(input):
     addend = int(input[index_of_add + 1:end_addend])
 
     if(augend < 0 and augend + addend > 0):
-        input = input.replace(str(input[start_augend-1]),'')
-        start_augend -= 1
+        if(start_augend != 1):
+            input = input.replace(str(input[start_augend-1]),'+',1)
+        else:
+            input = input.replace(str(input[start_augend-1]),'')
+            start_augend -= 1
 
 
     if (operator_left(input[end_addend:])==-1 and end_addend < len(input)):
@@ -167,3 +171,6 @@ def found_negative(input, number):
         return 1
     else:
         return -1
+
+if __name__ == '__main__':
+    main()

@@ -18,8 +18,11 @@ def test_subtraction():
     assert calculate("1-2-3-4-5")==-13
 
 def test_multi_op():
+    assert calculate("1-2+3")==2
     assert calculate("1+2*3")==7
     assert calculate("1+2-3")==0
+    assert calculate("-1-2+3")==0
+    assert calculate("-1+2-3")==-2
     assert calculate("3*4-1")==11
     assert calculate("8+6-7*4+3-2*6")==-23
     assert calculate("12435+34569-12345*10+50")==-76396
