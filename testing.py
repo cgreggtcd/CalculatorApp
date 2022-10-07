@@ -21,6 +21,9 @@ def test_multi_op():
     assert calculate("1+2*3")==7
     assert calculate("1+2-3")==0
     assert calculate("3*4-1")==11
+    assert calculate("1-2+3")==2
+    assert calculate("-1-2+3")==0
+    assert calculate("-1+2-3")==-2
     assert calculate("8+6-7*4+3-2*6")==-23
     assert calculate("12435+34569-12345*10+50")==-76396
     assert calculate("697*1884-7034*519+2452")==-2335046
@@ -65,3 +68,15 @@ def test_resolve_signs():
     assert resolve_signs("1-+2")=="1-2"
     assert resolve_signs("11--22")=="11+22"
     assert resolve_signs("11+22")=="11+22"
+
+def test_input():
+    assert input_check("1+2-3*4")=="1+2-3*4"
+    assert input_check("x+y-z")=="Error - Invalid input given"
+    assert input_check("hello")=="Error - Invalid input given"
+    assert input_check("3+1/4")=="Error - Invalid input given"
+
+def test_input_calc():
+    assert calculate("76+4*32-1")==203
+    assert calculate("Hello Calculator")=="Error - Invalid input given"
+    assert calculate("y-mx+b")=="Error - Invalid input given"
+    assert calculate("48/2+6")=="Error - Invalid input given"
