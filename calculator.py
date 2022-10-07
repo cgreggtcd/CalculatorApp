@@ -1,10 +1,36 @@
+# import regex module for checking valid input
+import re
+
+
+def main():
+    while True:
+        print("Please enter your equation (or type quit): ")
+        inp = input()
+        if inp == "quit":
+            break
+        elif inp == "":
+            print ("Error - Please give a valid input")
+        else:
+            print(calculate(inp))
+
 def calculate(input):
-    input = input.replace("--",'+')
-    answer = multiply_string(input)
+    answer = input_check(input)
+    if(answer != input):
+        return answer
+    answer = answer.replace("--",'+')
+    answer = multiply_string(answer)
     answer = add_string(answer)
     answer = subtract_string(answer)
     # replace special string "neg" with '-' once all operation have been calculated
     return int(answer)
+
+def input_check(input):
+    pattern = r'[^0-9+*-]'
+    check = re.sub(pattern, '',input)
+    if (len(input) > len(check)):
+        return "Error - Invalid input given"
+    else:
+        return input
 
 # This function resolves any sets of two signs: +- -> -, -+ -> -, -- -> +
 def resolve_signs(input):
@@ -71,7 +97,7 @@ def add_string(input):
     # If no addition operations are found
     if index_of_add == -1:
         return input
-    elif index_of_add ==0:
+    elif index_of_add == 0:
         input = input.replace('+','',1)
         return add_string(input)
 
@@ -101,7 +127,7 @@ def add_string(input):
         if(start_augend != 1):
             input = input.replace(str(input[start_augend-1]),'+',1)
         else:
-            input = input.replace(str(input[start_augend-1]),'')
+            input = input.replace(str(input[start_augend-1]),'',1)
             start_augend -= 1
 
 
