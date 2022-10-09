@@ -63,12 +63,6 @@ def test_add_string():
     assert add_string("0+0")=='0'
     assert add_string("1+2+3+4+5")=="15"
 
-def test_resolve_signs():
-    assert resolve_signs("1+-2")=="1-2"
-    assert resolve_signs("1-+2")=="1-2"
-    assert resolve_signs("11--22")=="11+22"
-    assert resolve_signs("11+22")=="11+22"
-
 def test_input():
     assert input_check("1+2-3*4")=="1+2-3*4"
     assert input_check("1+-2")=="1+-2"

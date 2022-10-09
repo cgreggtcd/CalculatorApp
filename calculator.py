@@ -1,6 +1,5 @@
-# import regex module for checking valid input
+# Import regex module for checking valid input
 import re
-
 
 def main():
     while True:
@@ -13,6 +12,8 @@ def main():
         else:
             print(calculate(inp))
 
+# calculate takes in a string of 0-9,+,-,*, and calculates the answer.
+# It returns an error message if the string is invalid.
 def calculate(input):
     answer = input_check(input)
     if(answer != input):
@@ -43,34 +44,6 @@ def input_check(input):
         return "Error - Invalid input given"
     else:
         return input
-
-# This function resolves any sets of two signs: +- -> -, -+ -> -, -- -> +
-def resolve_signs(input):
-    prevChar = input[0]
-    i = 1
-    while i < len(input):
-        currChar = input[i]
-        print("prevChar = {}, currChar = {}".format(prevChar, currChar))
-
-        if (prevChar == "-" and currChar == "+") or (prevChar == "+" and currChar == "-"):
-            input = input[:i-1] + "-" + input[i+1:]
-            # Then, everything after the second +/- is one to the left
-            prevChar = input[i]
-            i+=1
-            print("New input is {}, new prevChar = {}, new i = {}".format(input, prevChar, i))
-
-        elif prevChar == "-" and currChar == "-":
-            input = input[:i-1] + "+" + input[i+1:]
-            # Then, everything after the second +/- is one to the left
-            prevChar = input[i]
-            i+=1
-            print("New input is {}, new prevChar = {}, new i = {}".format(input, prevChar, i))
-
-        else:
-            i += 1
-            prevChar = currChar
-
-    return input
 
 def multiply_string(input):
     index_of_mul = input.find("*")
