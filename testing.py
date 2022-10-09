@@ -71,6 +71,16 @@ def test_resolve_signs():
 
 def test_input():
     assert input_check("1+2-3*4")=="1+2-3*4"
+    assert input_check("1+-2")=="1+-2"
+    # Checking invalid order of sequential operators
+    assert input_check("1-+2")=="Error - Invalid input given"
+    assert input_check("9-*10")=="Error - Invalid input given"
+    # Checking invalid repetitions of operators
+    assert input_check("43++5")=="Error - Invalid input given"
+    assert input_check("91*********4")=="Error - Invalid input given"
+    assert input_check("63--6")=="63--6"
+    assert input_check("72---3")=="Error - Invalid input given"
+    # Checking use of non-allowed characters
     assert input_check("x+y-z")=="Error - Invalid input given"
     assert input_check("hello")=="Error - Invalid input given"
     assert input_check("3+1/4")=="Error - Invalid input given"
@@ -80,3 +90,5 @@ def test_input_calc():
     assert calculate("Hello Calculator")=="Error - Invalid input given"
     assert calculate("y-mx+b")=="Error - Invalid input given"
     assert calculate("48/2+6")=="Error - Invalid input given"
+    assert calculate("1--------2")=="Error - Invalid input given"
+    assert calculate("44--6")==50
